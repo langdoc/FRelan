@@ -59,5 +59,5 @@ A BibTeX entry for LaTeX users is
     title = {FRelan: Parse and analyse ELAN files},
     author = {Niko Partanen},
     year = {2015},
-    note = {R package version 0.1},
+    note = {R package version 0.25},
   }
