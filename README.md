@@ -15,20 +15,27 @@ Please report bugs, weird behaviour and ideas for new features to [Niko Partanen
 
 Several things are unpolished and forthcoming.
 
-### Better error messages
-
-The error messages should try to indicate what is wrong and in which files. Ideally unparsable files would be somehow indicated, i.e. by messages like:
-
-    Skipping file "kpv_izva20101010-1"
-    Skipping file "kpv_izva20101010-2"
-
-Of course there should never be files in corpus that are structurally incompatible. This kind of messages would make finding them easier. This should be rather easy to set up.
-
-The errors given by XML package tend to be rather cryptic and difficult to associate with the problem. xml2 package maybe helps with this as well.
-
 ### media_eaf() -function
 
-It is very annoying to work with ELAN corpus which doesn't have right media files associated with each file. There could be a function that checks if the files referred to actually exists, and returns a data frame with that information. Files could be directly opened and checked with `open_eaf()` function. I have this already done, but it looked too messy and didn't work as expected. 
+It is very annoying to work with ELAN corpus which doesn't have right media files associated with each file. There could be a function that checks if the files referred to actually exists, and returns a data frame with that information. Files could be directly opened and checked with `open_eaf()` function.
+
+## Recent changes
+
+### Error handling
+
+I changed the behaviour of read_eaf() function so that it reads now only one file at time. If that file is for some reason unreadable, it gets skipped with a message. It would be better to handle it so that the message would be more specific about the problem, but this is difficult as there are so many ways how ELAN files can be structurally incoherent.
+
+## More dependency from plyr
+
+The most convenient way to read a large number of files is now something like this:
+
+    library(plyr)
+    library(dplyr)
+    library(FRelan)
+    eaf <- list.files(path = "/path/to/the/files/", pattern = "eaf$", recursive = T, full.names = T)
+    corpus_kpv <- ldply(eaf, read_eaf) %>% tbl_df
+
+So object `eaf` contains paths to each of found ELAN files, after which `ldply` function applies `read_eaf` function to each one of them, returning a data frame. Please notice that using `llply` one could return a list a data frames. This is also useful in many situations.
 
 ## Cite
 
