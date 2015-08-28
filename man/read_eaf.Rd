@@ -4,39 +4,26 @@
 \alias{read_eaf}
 \title{read_eaf Function}
 \usage{
-read_eaf(path = ".", pattern = "\\\\.eaf$", tokenization = TRUE,
-  ind.tier = "refT", ind.tier2 = FALSE, SA.tier = "orthT",
-  SS.tier = "wordT", ft.tier = FALSE, ignore = FALSE, recursive = FALSE,
-  part = FALSE)
+
+  read_eaf(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-dream/kpv_udo20120330SazinaJS-dream.eaf",
+  SS_tier = "wordT", SA_tier = "orthT", DEF_tier = "refT")
 }
 \arguments{
-\item{path}{This is a path. Defaults to current directory.}
+\item{file}{The path to ELAN file which we want to parse}
 
-\item{pattern}{This is a pattern in regex. Defaults has elan files only.}
+\item{SS_tier}{Linguistic type of the Symbolic Subdivision tier (usually contains the tokenized wordforms)}
 
-\item{tokenization}{Is the tokenization done already in ELAN? If not, then the argument word.tier should be ignored as well. Default is TRUE}
+\item{SA_tier}{Linguistic type of the Symbolic Association tier}
 
-\item{ind.tier}{What is the linguistic type of the independent tier.}
-
-\item{ind.tier2}{At times there are ELAN files that lack coherent structure, but there are different independent tiers that are supposed to be "aligned" with one another. With this it is possible to indicate existence of other independent tiers that should be merged. If you use this parameter, please ignore the other tier specifications. FRelan does not currently support reading files that have some hierarchy inside non-hierarchical structures.}
-
-\item{SA.tier}{What is the linguistic type of the tier that is one step down from your independent tier, hopefully having SYMBOLIC ASSOCIATION stereotype.}
-
-\item{SS.tier}{What is the linguistic type of your word level tier, it is assumed that the stereotype is SYMBOLIC SUBDIVISION.}
-
-\item{ft.tier}{What is the name of the free translation tier? Default is FALSE.}
-
-\item{ignore}{Is there need to ignore some filenames? Default = FALSE. Expects regular expression as input.}
-
-\item{recursive}{Should the function search to all subfolders on the path? Default = FALSE.}
-
-\item{part}{In some files we have used tier partT in order to mark distinct sections. Default = FALSE.}
+\item{DEF_tier}{Linguistic type of the independent tier}
 }
 \description{
-The function reads ELAN files. Dummy tokens that contain no information are erased automatically. The function assumes that all tiers have participant attributes filled and that they contain at least one token. In actual use the biggest problems are connected to structural irregularity of ELAN files in corpus. It is used ideally in connection with scripts that are able to parse IMDI or CMDI files. If the function worked earlier but now gives errors, please use `log_eaf()` function to see which files have been changed recently.
+This is an updated version of the old function, which has been renamed to read_eaf_old(). Instead of trying to do everything this function is supposedly used with `plyr` in order to parse multiple files. The function parses ELAN files. Dummy tokens that contain no information are erased automatically. The files that are for some reason not parsable are skipped. In actual use the biggest problems are connected to structural irregularity of ELAN files in corpus. It is used ideally in connection with scripts that are able to parse IMDI or CMDI files. Please use `log_eaf()` function to see which files have been changed recently, those are usually the ones containing problems.
 }
 \examples{
-read_eaf(path = "corpora/kpv/", ind.tier = "refT", SA.tier = "orthT", SS.tier = "wordT", recursive = TRUE)
+read_eaf(path = "corpora/kpv/session_1.eaf", DEF_tier = "refT", SA_tier = "orthT", SS_tier = "wordT")
 }
-\keyword{ELAN}
+\keyword{ELAN,}
+\keyword{documentary}
+\keyword{linguistics}
 

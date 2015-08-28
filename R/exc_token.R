@@ -6,7 +6,7 @@
 #' @keywords ELAN
 #' @export
 #' @examples
-#'find_token(".+ter$")
+#'corpus %>% find_token(".+ter$") %>% exc_token("^a.+")
 
 exc_token <- function(corpus = corpus, regex = "test") {
         corpus %>% dplyr::filter(! grepl(regex, Token))

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ANNOTATION_DOCUMENT AUTHOR="" DATE="2015-02-08T11:26:24+01:00" FORMAT="2.8" VERSION="2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.mpi.nl/tools/elan/EAFv2.8.xsd">
+<ANNOTATION_DOCUMENT AUTHOR="" DATE="2015-07-27T13:23:14+04:00" FORMAT="2.8" VERSION="2.8" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.mpi.nl/tools/elan/EAFv2.8.xsd">
     <HEADER MEDIA_FILE="" TIME_UNITS="milliseconds">
-        <MEDIA_DESCRIPTOR MEDIA_URL="file:///Users/niko/kom/kpv_izva/kpv_izva20140404IgushevJA/kpv_izva20140404IgushevJA.wav" MIME_TYPE="audio/x-wav" RELATIVE_MEDIA_URL="../../../../../kom/kpv_izva/kpv_izva20140404IgushevJA/kpv_izva20140404IgushevJA.wav"/>
-        <MEDIA_DESCRIPTOR MEDIA_URL="file:///Users/niko/kom/kpv_izva/kpv_izva20140404IgushevJA/kpv_izva20140404IgushevJA.m4v" MIME_TYPE="unknown" RELATIVE_MEDIA_URL="../../../../../kom/kpv_izva/kpv_izva20140404IgushevJA/kpv_izva20140404IgushevJA.m4v"/>
+        <MEDIA_DESCRIPTOR MEDIA_URL="file:///Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgushevJA.wav" MIME_TYPE="audio/x-wav" RELATIVE_MEDIA_URL="./kpv_izva20140404IgushevJA.wav"/>
+        <MEDIA_DESCRIPTOR MEDIA_URL="file:///Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgushevJA.m4v" MIME_TYPE="unknown" RELATIVE_MEDIA_URL="./kpv_izva20140404IgushevJA.m4v"/>
         <PROPERTY NAME="URN">urn:nl-mpi-tools-elan-eaf:adf4836c-5762-4027-9395-2078c9253f68</PROPERTY>
         <PROPERTY NAME="lastUsedAnnotationId">10535</PROPERTY>
     </HEADER>

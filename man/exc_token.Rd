@@ -15,7 +15,7 @@ exc_token(corpus = corpus, regex = "test")
 This function is equivalent to `filter(! grepl("regex", Token))`, but demands less typing. It is convenient to use this function in a dplyr pipe after the data frame output of read_eaf() function. It is very common that in order to exclude some tokens we can just define some regular expression patterns which do the job, after which we pass the results onward.
 }
 \examples{
-find_token(".+ter$")
+corpus \%>\% find_token(".+ter$") \%>\% exc_token("^a.+")
 }
 \keyword{ELAN}
 
