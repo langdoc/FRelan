@@ -1,0 +1,19 @@
+Package: FRelan
+Title: Parse and analyze ELAN files
+Version: 0.2
+Authors@R: c(person("Niko", "Partanen", , "nikotapiopartanen@gmail.com", role = c("aut", "cre")),
+           person("Kone Foundation", , "www.koneensaatio.fi/en/", role = c("fnd")))
+Description: Parsing ELAN files into R
+Depends: R (>= 3.1.2)
+License: GPL-3
+Date: 2015-04-30
+LazyData: true
+Import: plyr,
+        dplyr,
+        ggplot2,
+        XML,
+        shiny,
+        xml2,
+        stringr
+Suggests: knitr
+VignetteBuilder: knitr

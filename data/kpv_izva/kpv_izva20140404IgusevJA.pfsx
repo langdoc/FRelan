@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences version="1.1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.mpi.nl/tools/elan/Prefs_v1.1.xsd">
+    <prefList key="MultiTierViewer.TierOrder">
+        <String>part</String>
+        <String>note(part)</String>
+        <String>ref@JAI-M-1939</String>
+        <String>phonet-UPA@JAI-M-1939</String>
+        <String>phonol-CYR@JAI-M-1939</String>
+        <String>translit-LAT@JAI-M-1939</String>
+        <String>note(ref)@JAI-M-1939</String>
+        <String>orth@JAI-M-1939</String>
+        <String>word@JAI-M-1939</String>
+        <String>lemma@JAI-M-1939</String>
+        <String>morph@JAI-M-1939</String>
+        <String>pos@JAI-M-1939</String>
+        <String>lg(word)@JAI-M-1939</String>
+        <String>note(word)@JAI-M-1939</String>
+        <String>ft-eng@JAI-M-1939</String>
+        <String>ft-deu@JAI-M-1939</String>
+        <String>ft-nob@JAI-M-1939</String>
+        <String>ft-rus@JAI-M-1939</String>
+        <String>ft-swe@JAI-M-1939</String>
+        <String>ft-ling@JAI-M-1939</String>
+        <String>ft-fin@JAI-M-1939</String>
+        <String>note(orth)@JAI-M-1939</String>
+        <String>lg(orth)@JAI-M-1939</String>
+        <String>phonet-IPA@JAI-M-1939</String>
+        <String>phonol-LAT@JAI-M-1939</String>
+        <String>geo</String>
+        <String>note(geo)</String>
+        <String>bio</String>
+        <String>note(bio)</String>
+        <String>comment</String>
+        <String>ref@NTP-M-1986</String>
+        <String>phonet-UPA@NTP-M-1986</String>
+        <String>phonol-CYR@NTP-M-1986</String>
+        <String>translit-LAT@NTP-M-1986</String>
+        <String>note(ref)@NTP-M-1986</String>
+        <String>orth@NTP-M-1986</String>
+        <String>word@NTP-M-1986</String>
+        <String>lemma@NTP-M-1986</String>
+        <String>morph@NTP-M-1986</String>
+        <String>pos@NTP-M-1986</String>
+        <String>lg(word)@NTP-M-1986</String>
+        <String>note(word)@NTP-M-1986</String>
+        <String>ft-eng@NTP-M-1986</String>
+        <String>ft-deu@NTP-M-1986</String>
+        <String>ft-nob@NTP-M-1986</String>
+        <String>ft-rus@NTP-M-1986</String>
+        <String>ft-swe@NTP-M-1986</String>
+        <String>ft-ling@NTP-M-1986</String>
+        <String>ft-fin@NTP-M-1986</String>
+        <String>note(orth)@NTP-M-1986</String>
+        <String>lg(orth)@NTP-M-1986</String>
+        <String>phonet-IPA@NTP-M-1986</String>
+        <String>phonol-LAT@NTP-M-1986</String>
+    </prefList>
+    <pref key="ActiveVideoRecognizerName">
+        <String>Human motion analysis and annotation</String>
+    </pref>
+    <pref key="LayoutManager.VisibleMultiTierViewer">
+        <String>mpi.eudico.client.annotator.viewer.TimeLineViewer</String>
+    </pref>
+    <prefGroup key="Text-to-Speech alignment">
+        <pref key="model">
+            <String>English</String>
+        </pref>
+        <pref key="audio">
+            <String>///Users/niko/kom/kpv_izva/kpv_izva20140404IgushevJA/kpv_izva20140404IgushevJA.wav</String>
+        </pref>
+    </prefGroup>
+    <prefList key="CommentViewer.Columns.Order">
+        <String>Start Time</String>
+        <String>End Time</String>
+        <String>Tier</String>
+        <String>Initials</String>
+        <String>Comment</String>
+        <String>Thread</String>
+        <String>Sender</String>
+        <String>Recipient</String>
+        <String>Creation Date</String>
+        <String>Modification Date</String>
+    </prefList>
+    <prefGroup key="Human motion analysis and annotation">
+        <pref key="output_video_resolution">
+            <String>half</String>
+        </pref>
+        <pref key="background_image">
+            <String>false</String>
+        </pref>
+        <pref key="use_single_cluster">
+            <String>false</String>
+        </pref>
+        <pref key="speed_threshold">
+            <String>normal</String>
+        </pref>
+        <pref key="logging_level">
+            <String>normal</String>
+        </pref>
+        <prefGroup key="input_xml"/>
+        <pref key="use_rest_position">
+            <String>false</String>
+        </pref>
+        <pref key="change_threshold">
+            <Float>30.0</Float>
+        </pref>
+    </prefGroup>
+    <pref key="LayoutManager.SplitPaneDividerLocation">
+        <Int>70</Int>
+    </pref>
+    <pref key="LayoutManager.SelectedTabIndex">
+        <Int>8</Int>
+    </pref>
+    <prefGroup key="TierColors">
+        <pref key="geo">
+            <Object class="java.awt.Color">160,160,0</Object>
+        </pref>
+        <pref key="ref@NTP-M-1986">
+            <Object class="java.awt.Color">0,0,160</Object>
+        </pref>
+        <pref key="bio">
+            <Object class="java.awt.Color">90,0,160</Object>
+        </pref>
+        <pref key="ref@JAI-M-1939">
+            <Object class="java.awt.Color">90,90,160</Object>
+        </pref>
+        <pref key="part">
+            <Object class="java.awt.Color">90,90,0</Object>
+        </pref>
+        <pref key="comment">
+            <Object class="java.awt.Color">0,90,90</Object>
+        </pref>
+    </prefGroup>
+    <prefList key="CommentViewer.Columns.Hidden">
+        <String>Sender</String>
+        <String>Recipient</String>
+    </prefList>
+    <pref key="FrameLocation">
+        <Object class="java.awt.Point">0,23</Object>
+    </pref>
+    <pref key="SelectionBeginTime">
+        <Long>481566</Long>
+    </pref>
+    <pref key="LayoutManager.CurrentMode">
+        <Int>1</Int>
+    </pref>
+    <pref key="MediaTime">
+        <Long>482001</Long>
+    </pref>
+    <pref key="MultiTierViewer.TierSortingMode">
+        <Int>1</Int>
+    </pref>
+    <pref key="TimeLineViewer.ReducedTierHeight">
+        <Boolean>true</Boolean>
+    </pref>
+    <pref key="FrameSize">
+        <Object class="java.awt.Dimension">1280,773</Object>
+    </pref>
+    <prefGroup key="CommentViewer.Columns">
+        <pref key="Modification Date">
+            <Int>75</Int>
+        </pref>
+        <pref key="Sender">
+            <Int>0</Int>
+        </pref>
+        <pref key="Tier">
+            <Int>75</Int>
+        </pref>
+        <pref key="Creation Date">
+            <Int>75</Int>
+        </pref>
+        <pref key="Initials">
+            <Int>75</Int>
+        </pref>
+        <pref key="Comment">
+            <Int>75</Int>
+        </pref>
+        <pref key="End Time">
+            <Int>75</Int>
+        </pref>
+        <pref key="Start Time">
+            <Int>75</Int>
+        </pref>
+        <pref key="Recipient">
+            <Int>0</Int>
+        </pref>
+        <pref key="Thread">
+            <Int>75</Int>
+        </pref>
+    </prefGroup>
+    <pref key="MultiTierViewer.ActiveTierName">
+        <String>part</String>
+    </pref>
+    <pref key="TimeScaleBeginTime">
+        <Long>477693</Long>
+    </pref>
+    <pref key="LayoutManager.MediaAreaHeight">
+        <Int>315</Int>
+    </pref>
+    <pref key="ActiveAudioRecognizerName">
+        <String>Text-to-Speech alignment</String>
+    </pref>
+    <pref key="SelectionEndTime">
+        <Long>485180</Long>
+    </pref>
+</preferences>
