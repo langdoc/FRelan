@@ -46,11 +46,11 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
                                 time_slot_1 = file %>%
                                         xml2::xml_find_all(
                                                 paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']/ANNOTATION/*/ANNOTATION_VALUE/../../..")) %>%
-                                        xml2::xml_attr("TIME_SLOT_REF1"),
+                                        xml2::xml_attr("TIME_SLOT_REF_1"),
                                 time_slot_2 = file %>%
                                         xml2::xml_find_all(
                                                 paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']/ANNOTATION/*/ANNOTATION_VALUE/../../..")) %>%
-                                        xml2::xml_attr("TIME_SLOT_REF2"))
+                                        xml2::xml_attr("TIME_SLOT_REF_2"))
                 }
 
                 plyr::ldply(participants_in_file, coerce_data_frame) %>% dplyr::tbl_df()
