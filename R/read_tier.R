@@ -19,7 +19,7 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
 
                 create_path <- function(..., above = F){
 
-                        restriction <- paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']")
+                        restriction <- paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")
 
                         if (above == T){
                                 xpath_end <- "/ANNOTATION/*/ANNOTATION_VALUE/../../.."
