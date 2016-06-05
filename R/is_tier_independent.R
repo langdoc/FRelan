@@ -6,7 +6,7 @@
 #' @keywords ELAN
 #' @export
 #' @examples
-#' is_tier_independent(path = "path/to/elan/file.eaf", tier = "ref")
+#' is_tier_independent(path = "path/to/elan/file.eaf", tier = "refT")
 
 is_type_independent <- function(eaf_file, linguistic_type) {
 
