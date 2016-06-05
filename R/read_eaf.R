@@ -10,7 +10,9 @@
 #' @examples
 #' read_eaf(path = "corpora/kpv/session_1.eaf", DEF_tier = "refT", SA_tier = "orthT", SS_tier = "wordT")
 
-read_eaf <- function(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-dream/kpv_udo20120330SazinaJS-dream.eaf", SS_tier = "wordT", SA_tier = "orthT", DEF_tier = "refT") {
+read_eaf <- function(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-dream/kpv_udo20120330SazinaJS-dream.eaf", SS_tier = "wordT", SA_tier = "orthT", DEF_tier = "refT", simplify = TRUE) {
+
+        `%>%` <- dplyr::`%>%`
 
         doc <- tryCatch(XML::xmlTreeParse(file, useInternalNodes = TRUE), error=function(e){
                 print(paste("skipping", file, "Reason: content is not XML"))
@@ -106,8 +108,26 @@ read_eaf <- function(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-
                         dplyr::rename(TS2_time = Time) %>%
                         select(-TS1, -TS2)
 
-                corpus <- suppressMessages(dplyr::left_join(word, suppressMessages(dplyr::left_join(ref, orth %>% select(-Filename, -Speaker), by = "RefID")))) %>% select(-TokenID, -OrthID, -RefID)
+                corpus <- suppressMessages(dplyr::left_join(word, suppressMessages(dplyr::left_join(ref, orth %>% select(-Filename, -Speaker), by = "RefID"))))
 
+                if (simplify == TRUE){
+
+                corpus <- suppressMessages(dplyr::select(corpus, -TokenID, -OrthID, -RefID))
+
+                } else {
+
+                corpus <- suppressMessages(dplyr::rename(corpus, ref_TokenID = TokenID,
+                                                         ref_OrthID = OrthID,
+                                                         ref_RefID = RefID))
+
+                corpus$Max_id <- xml2::read_xml(file) %>%
+                        xml2::xml_find_all("//TIER/ANNOTATION/*[self::ALIGNABLE_ANNOTATION or self::REF_ANNOTATION]") %>%
+                        xml2::xml_attr("ANNOTATION_ID") %>%
+                        stringr::str_replace_all("a", "") %>%
+                        as.numeric %>%
+                        max
+
+                }
 
                 corpus$TS1_time <- as.numeric(corpus$TS1_time)
                 corpus$TS2_time <- as.numeric(corpus$TS2_time)
@@ -144,8 +164,10 @@ read_eaf <- function(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-
                         Token6 <- Token5[1:length(Token1)+1]
                         Token7 <- Token6[1:length(Token1)+1]
                         Token8 <- Token7[1:length(Token1)+1]
+                        Token9 <- Token8[1:length(Token1)+1]
+                        Token10 <- Token9[1:length(Token1)+1]
 
-                        x$After <- paste(Token2, Token3, Token4, Token5, Token6)
+                        x$After <- paste(Token2, Token3, Token4, Token5, Token6, Token7, Token8, Token9, Token10)
                 }
 
                 get_before <- function(x){
@@ -165,8 +187,12 @@ read_eaf <- function(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-
                         Token7 <- append(Token7, "", 0)
                         Token8 <- Token7[0:(length(Token7)-1)]
                         Token8 <- append(Token8, "", 0)
+                        Token9 <- Token8[0:(length(Token8)-1)]
+                        Token9 <- append(Token9, "", 0)
+                        Token10 <- Token9[0:(length(Token9)-1)]
+                        Token10 <- append(Token10, "", 0)
 
-                        x$Before <- paste(Token8, Token7, Token6, Token5, Token4, Token3, Token2)
+                        x$Before <- paste(Token10, Token9, Token8, Token7, Token6, Token5, Token4, Token3, Token2)
                 }
 
                 concat_after <- lapply(corpus_split, get_after)
