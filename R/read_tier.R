@@ -8,99 +8,38 @@
 #' @examples
 #' read_tier(path = "corpora/kpv/", tier = "wordT")
 
-read_tier <- function(eaf_file, tier = "wordT", independent = FALSE){
-                library(dplyr)
-                eaf <- xml2::read_xml(eaf_file)
+read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", participant = "JAI-M-1939", linguistic_type = "wordT", independent = F){
 
-                session_name <- gsub(".+/(.+)\\.eaf", "\\1", eaf_file)
+                `%>%` <- dplyr::`%>%`
 
-                attr <- xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", ']'))
+                file <- xml2::read_xml(eaf_file)
 
+                # file %>% xml2::xml_find_all(paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")) %>%
+                #                 xml2::xml_attr("PARTICIPANT") -> participants_in_file
+                #
+                # participant %in% participants_in_file
 
-                if (length(attr) == 0){
-                        test <- data.frame(Session_name = session_name, tier_name = paste0("ERROR: Tier '", tier, "' missing"), a_id = "ERROR", ref_id = "ERROR", Token = "ERROR", Speaker = "ERROR", stringsAsFactors = F)
-                test
+                create_path <- function(..., above = F){
+                        if (exists("participant")){
+                                restriction <- paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']")
+                        } else {
+                                restriction <- paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")
+                        }
+                        if (above == T){
+                                xpath_end <- "/ANNOTATION/*/ANNOTATION_VALUE/../../.."
+                        } else {
+                                xpath_end <- "/ANNOTATION/*/ANNOTATION_VALUE"
+                        }
 
-                } else {
-
-                participant <- xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", ']')) %>% xml2::xml_attr("PARTICIPANT")
-
-                if (independent == F){
-                annotation_id <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/REF_ANNOTATION')) %>% xml2::xml_attr("ANNOTATION_ID"))
-
-                annotation_ref <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/REF_ANNOTATION')) %>% xml2::xml_attr("ANNOTATION_REF"))
-
-                tier_name <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']")) %>% xml2::xml_attr("TIER_ID"))
-
-                token <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/REF_ANNOTATION/ANNOTATION_VALUE')) %>% xml2::xml_text())
-
-                } else {
-
-                annotation_id <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/ALIGNABLE_ANNOTATION')) %>% xml2::xml_attr("ANNOTATION_ID"))
-
-                annotation_ref <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/ALIGNABLE_ANNOTATION')) %>% xml2::xml_attr("ANNOTATION_REF"))
-
-                tier_name <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']")) %>% xml2::xml_attr("TIER_ID"))
-
-                token <- plyr::llply(participant, function(x) xml2::xml_find_all(eaf, xpath = paste0('//TIER[@LINGUISTIC_TYPE_REF=', "'", tier, "'", '][@PARTICIPANT=', "'", x, "']", '/ANNOTATION/ALIGNABLE_ANNOTATION/ANNOTATION_VALUE')) %>% xml2::xml_text())
-
+                        paste0(restriction, xpath_end)
                 }
 
-                lengths <- plyr::llply(token, length)
 
-                lengths <- gsub(0, 1, unlist(lengths))
-
-                df <- data.frame(participant, length = lengths, stringsAsFactors = F)
-
-                participant <- plyr::llply(participant, function(x) if (length(x) < 1){
-                        x <- "ERROR: Missing PARTICIPANT attribute"} else {
-                                x <- x
-                        })
-
-                tier_name <- plyr::llply(tier_name, function(x) if (length(x) < 1){
-                        x <- "ERROR: Missing PARTICIPANT attribute"} else {
-                                x <- x
-                        })
-
-                participant <- paste(rep(df$participant, times = df$length))
-                tier_name <- paste(rep(unlist(tier_name), times = df$length))
-
-
-
-                token <- plyr::llply(token, function(x) if (length(x) < 1){
-                        x <- "ERROR: TOKENIZATION MISSING"} else {
-                        x <- x
-                })
-
-                annotation_id <- plyr::llply(annotation_id, function(x) if (length(x) < 1){
-                        x <- "ERROR: TOKENIZATION MISSING"} else {
-                                x <- x
-                        })
-
-                annotation_ref <- plyr::llply(annotation_ref, function(x) if (length(x) < 1){
-                        x <- "ERROR: TOKENIZATION MISSING"} else {
-                                x <- x
-                        })
-
-                if (sum(unlist(plyr::llply(annotation_id, length))) < sum(length(participant))){
-                        diff <- sum(length(participant)) - sum(unlist(llply(annotation_id, length)))
-                        annotation_id <- c(annotation_id, list(c(rep("ERROR: Mismatch in annotation count", times = diff))))
-                }
-
-                if (sum(unlist(plyr::llply(annotation_ref, length))) < sum(length(participant))){
-                        diff <- sum(length(participant)) - sum(unlist(llply(annotation_ref, length)))
-                        annotation_ref <- c(annotation_ref, list(c(rep("ERROR: Mismatch in annotation count", times = diff))))
-                }
-
-                if (sum(unlist(plyr::llply(token, length))) < sum(length(participant))){
-                        diff <- sum(length(participant)) - sum(unlist(llply(token, length)))
-                        token <- c(token, list(c(rep("ERROR: Mismatch in annotation count", times = diff))))
-                }
-
-                test <- data.frame(Session_name = session_name, tier_name = tier_name, a_id = unlist(annotation_id), ref_id = unlist(annotation_ref), Token = unlist(token), Speaker = participant, Filename = eaf_file, stringsAsFactors = F)
-                test$Word <- test$Token
-                test$Token <- tolower(test$Token)
-                test
-                }
-}
-
+                dplyr::data_frame(
+                        Content = file %>% xml2::xml_find_all(create_path()) %>% xml2::xml_text(),
+                        annot_id = file %>% xml2::xml_find_all(paste0(create_path(), "/..")) %>% xml2::xml_attr("ANNOTATION_ID"),
+                        ref_id = file %>% xml2::xml_find_all(paste0(create_path(), "/..")) %>% xml2::xml_attr("ANNOTATION_REF"),
+                        participant = file %>% xml2::xml_find_all(create_path(above = T)) %>% xml2::xml_attr("PARTICIPANT"),
+                        tier_id = file %>% xml2::xml_find_all(create_path(above = T)) %>% xml2::xml_attr("TIER_ID"),
+                        type = file %>% xml2::xml_find_all(create_path(above = T)) %>% xml2::xml_attr("LINGUISTIC_TYPE_REF"))
+        }
