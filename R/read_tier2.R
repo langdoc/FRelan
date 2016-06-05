@@ -1,4 +1,4 @@
-#' read_tier Function read individual tiers from single ELAN files.
+#' read_tier2 Function read individual tiers from single ELAN files.
 #'
 #' This function reads just an individual tier of one ELAN file
 #' @param eaf_file This is a path to the file.
@@ -6,7 +6,7 @@
 #' @keywords ELAN
 #' @export
 #' @examples
-#' read_tier(path = "corpora/kpv/", tier = "wordT")
+#' read_tier2(path = "corpora/kpv/", tier = "wordT")
 
 read_tier <- function(eaf_file = "../FRelan/data/input/kpv_izva19570000-291_1a-Brikalansk.eaf", linguistic_type = "wordT", participant = "PXT-F-19XX"){
 
