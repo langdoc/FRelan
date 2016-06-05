@@ -9,5 +9,5 @@
 #'corpus %>% find_token(".+ter$") %>% exc_token("^a.+")
 
 exc_token <- function(corpus = corpus, regex = "test") {
-        corpus %>% dplyr::filter(! grepl(regex, Token))
+        corpus %>% dplyr::filter(! grepl(regex, token))
 }

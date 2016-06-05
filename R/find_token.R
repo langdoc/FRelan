@@ -10,5 +10,5 @@
 
 find_token <- function(corpus = corpus, regex = "test") {
         library(dplyr)
-        corpus %>% dplyr::filter(grepl(regex, Token))
+        corpus %>% dplyr::filter(grepl(regex, token))
 }
