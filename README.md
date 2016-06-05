@@ -29,6 +29,10 @@ Now the function `read_eaf` simplifies the data frame by default, as it doesn't 
 
 It is very annoying to work with ELAN corpus which doesn't have right media files associated with each file. There could be a function that checks if the files referred to actually exists, and returns a data frame with that information. Files could be directly opened and checked with `open_eaf()` function.
 
+### Crashing with empty ELAN files
+
+At the moment `read_eaf` function crashes with empty ELAN files.
+
 ## Recent changes
 
 ### Error handling

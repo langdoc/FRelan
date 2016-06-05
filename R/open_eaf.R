@@ -11,7 +11,9 @@
 
 open_eaf <- function(corpus = corpus_kpv, row = 1, program = FALSE){
 
-        corpus %>% slice(row) -> corpus
+        `%>%` <- dplyr::`%>%`
+
+        corpus %>% dplyr::slice(row) -> corpus
 
         file <- gsub("\\.eaf$", ".pfsx", corpus$Filename)
 
