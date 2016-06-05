@@ -6,7 +6,8 @@
 \usage{
 
   read_eaf(file = "/Volumes/langdoc/langs/kpv/kpv_udo20120330SazinaJS-dream/kpv_udo20120330SazinaJS-dream.eaf",
-  SS_tier = "wordT", SA_tier = "orthT", DEF_tier = "refT")
+  SS_tier = "wordT", SA_tier = "orthT", DEF_tier = "refT",
+  simplify = TRUE)
 }
 \arguments{
 \item{file}{The path to ELAN file which we want to parse}
@@ -23,7 +24,5 @@ This is an updated version of the old function, which has been renamed to read_e
 \examples{
 read_eaf(path = "corpora/kpv/session_1.eaf", DEF_tier = "refT", SA_tier = "orthT", SS_tier = "wordT")
 }
-\keyword{ELAN,}
-\keyword{documentary}
-\keyword{linguistics}
+\keyword{ELAN}
 
