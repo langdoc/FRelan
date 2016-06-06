@@ -5,79 +5,88 @@
 #' @keywords ELAN
 #' @export
 
-FRorpus <- function(corpus, c1 = "Before", c2 = "Token", c3 = "After", c4 = FALSE) {
-require(shiny)
-require(dplyr)
+FRorpus <- function(corpus, c1 = "before", c2 = "token", c3 = "after", c4 = FALSE) {
 
 `%>%` <- dplyr::`%>%`
 
 data <- corpus
-# regex_eng <- read.delim("R/data/regex-eng.txt")
 
-filtering <- function( regex, after, before, ignore){
-        data <- data %>% dplyr::filter(grepl(regex, Token, perl = TRUE))
-        data <- data %>% dplyr::filter(grepl(after, After, perl = TRUE))
-        data <- data %>% dplyr::filter(grepl(before, Before, perl = TRUE))
-        data <- data %>% dplyr::filter(! grepl(ignore, Token, perl = TRUE))
+# This is the function used to filter searches
+
+filtering <- function(regex, env_after, env_before, ignore){
+        data <- data %>% dplyr::filter(grepl(regex, token, perl = TRUE))
+        data <- data %>% dplyr::filter(grepl(env_after, after, perl = TRUE))
+        data <- data %>% dplyr::filter(grepl(env_before, before, perl = TRUE))
+        data <- data %>% dplyr::filter(! grepl(ignore, token, perl = TRUE))
 }
 
-shinyApp(ui = fluidPage(theme = "bootstrap.css",
-        navbarPage(
-                title = 'FRorpus',
-                        tabPanel('Concordances',
+# This is the UI definition
 
-                                tags$head(tags$style(".table .alignRight {color: black; text-align:right;}")),
-                                tags$head(tags$style(".table .alignCenter {color: blue; text-align:center;}")),
-                                tags$head(tags$style(".table .alignLeft {color: black; text-align:left;}")),
-# Create a new Row in the UI for selectInputs
-                                fluidRow(
-                                        column(3,
-                                          textInput("text3", label = h4("Over left border:"), value = "^.+$")),
-                                        column(3,
-                                          textInput("text1", label = h4("Search tokens:"), value = "^.+$")),
-                                        column(3,
-                                          textInput("text2", label = h4("Over right border:"), value = "^.+$")),
-                                        column(3,
-                                          textInput("text4", label = h4("Ignore:"), value = "$nothing")),
-# Create a new row for the table.
-                                fluidRow(dataTableOutput(outputId="table")
+shiny::shinyApp(ui = shiny::fluidPage(theme = "bootstrap.css",
+        shiny::navbarPage(
+                title = 'FRorpus',
+                        shiny::tabPanel('Concordances',
+
+                                shiny::tags$head(shiny::tags$style(".table .alignRight {color: black; text-align:right;}")),
+                                shiny::tags$head(shiny::tags$style(".table .alignCenter {color: blue; text-align:center;}")),
+                                shiny::tags$head(shiny::tags$style(".table .alignLeft {color: black; text-align:left;}")),
+
+# There are the inputs
+
+                        shiny::fluidRow(
+                                shiny::column(3,
+                                              textInput("text3", label = shiny::h4("Over left border:"), value = "^.+$")),
+                                shiny::column(3,
+                                              textInput("text1", label = shiny::h4("Search tokens:"), value = "^.+$")),
+                                shiny::column(3,
+                                              textInput("text2", label = shiny::h4("Over right border:"), value = "^.+$")),
+                                shiny::column(3,
+                                              textInput("text4", label = shiny::h4("Ignore:"), value = "$nothing")),
+
+# This is the table for results
+
+                        shiny::fluidRow(shiny::dataTableOutput(outputId="table")
                                                    ))
 ),
 
-                        tabPanel('Information & Help',
-                                 (fluidPage(
-                                 h1("FRorpus application"),
-                                 p(paste0("This corpus contains currently data from Kola Saami languages. It is intensively under development, but will offer easy access to this data.")),
-                                 p("The regular expressions have to be used in the searches. They are Perl compatible.")
+# This is another tab for different content -- there could be more of these
+
+                        shiny::tabPanel('Information & Help',
+                                 (shiny::fluidPage(
+                                         shiny::h1("FRorpus application"),
+                                         shiny::p(paste0("This search interface is designed to be used within FRelan R package and is integrated into it.")),
+                                         shiny::p("The regular expressions have to be used in the searches. They are Perl compatible.")
                                  ))
 ),
-                        tabPanel('Contact',
-                                (fluidPage(h1("Freiburg Research Group in Saami Studies")
+
+# Just contact information
+
+                        shiny::tabPanel('Contact',
+                                (shiny::fluidPage(shiny::h1("Freiburg Research Group in Saami Studies"),
+                                                  shiny::p("Please contact Niko Partanen (nikotapiopartanen@gmail.com) or Michael Rießler (michael.riessler@skandinavistik.uni-freiburg.de).")
                                            )))
-
-
                           )
                 ),
+# This is the server file. It is often as its own file, but can be also within the same file as it is here.
+
 server = function(input, output) {
 
-        ###########################################################################
-        ###### DATA TABLE #########################################################
-        ###########################################################################
-
         # Filter data based on selections
-        output$table <- renderDataTable({
+
+        output$table <- shiny::renderDataTable({
 
                 data <- filtering(input$text1, input$text2, input$text3, input$text4)
-#                 if (nrow(data) == nrow(corpus)){
-#                         regex_eng
-#                 } else {
+
                  if (c4 == FALSE){
-                data[,c(c1, c2, c3)] # dplyr::arrange(Token) %>% dplyr::select(columns)
+                data[,c(c1, c2, c3)]
                  } else {
                 data[,c(c1, c2, c3, c4)]
                  }
 
         }, options = list(
+
+                # These are the column settings
+
                 aoColumnDefs = list(
                         list(targets = c(0, 1, 2), searchable = FALSE),
                         list(sClass="alignRight", aTargets=c(0)),
@@ -87,9 +96,12 @@ server = function(input, output) {
                         list(sWidth=c("100px"), aTargets=c(1)),
                         list(sWidth=c("200px"), aTargets=c(2))
                 ),
+
+                # These are data table settings
+
                 searching = 0,  # global search box on/off
-                lengthMenu = c(10, 50, 100),
-                pageLength = 100)
+                lengthMenu = c(10, 50, 100), # length options
+                pageLength = 20) # default rows
         )
 })
 }
