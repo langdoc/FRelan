@@ -35,13 +35,13 @@ shiny::shinyApp(ui = shiny::fluidPage(theme = "bootstrap.css",
 
                         shiny::fluidRow(
                                 shiny::column(3,
-                                              textInput("text3", label = shiny::h4("Over left border:"), value = "^.+$")),
+                                              shiny::textInput("text3", label = shiny::h4("Over left border:"), value = "^.+$")),
                                 shiny::column(3,
-                                              textInput("text1", label = shiny::h4("Search tokens:"), value = "^.+$")),
+                                              shiny::textInput("text1", label = shiny::h4("Search tokens:"), value = "^.+$")),
                                 shiny::column(3,
-                                              textInput("text2", label = shiny::h4("Over right border:"), value = "^.+$")),
+                                              shiny::textInput("text2", label = shiny::h4("Over right border:"), value = "^.+$")),
                                 shiny::column(3,
-                                              textInput("text4", label = shiny::h4("Ignore:"), value = "$nothing")),
+                                              shiny::textInput("text4", label = shiny::h4("Ignore:"), value = "$nothing")),
 
 # This is the table for results
 
