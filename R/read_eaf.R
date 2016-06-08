@@ -10,33 +10,34 @@
 #' @examples
 #' read_eaf(eaf_file = "corpora/kpv/session_1.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT")
 
-read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva20140404IgusevJA.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
+read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
 
         `%>%` <- dplyr::`%>%`
 
-        eaf_file = xml2::read_xml(eaf_file)
+        eaf = xml2::read_xml(eaf_file)
 
-        eaf <- FRelan::read_tier(xml_object = eaf_file, read_file = F, linguistic_type = ss_tier) %>%
+        eaf <- FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ss_tier) %>%
                 dplyr::select(content, ref_id, participant) %>%
                 dplyr::rename(token = content) %>%
                 dplyr::rename(annot_id = ref_id) %>%
-                dplyr::left_join(FRelan::read_tier(xml_object = eaf_file, read_file = F, linguistic_type = sa_tier)) %>%
+                dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = sa_tier)) %>%
                 dplyr::select(token, content, participant, ref_id) %>%
                 dplyr::rename(utterance = content) %>%
                 dplyr::rename(annot_id = ref_id) %>%
-                dplyr::left_join(FRelan::read_tier(xml_object = eaf_file, read_file = F, linguistic_type = ind_tier)) %>%
+                dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ind_tier)) %>%
                 dplyr::select(token, utterance, content, participant, time_slot_1, time_slot_2) %>%
-                dplyr::rename(reference = content) %>% dplyr::left_join(FRelan::read_timeslots(xml_object = eaf_file, read_file = F),
+                dplyr::rename(reference = content) %>% dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
                                                                         by = c("time_slot_1" = "time_slot_id")) %>%
                 dplyr::rename(time_start = time_value) %>%
-                dplyr::left_join(FRelan::read_timeslots(xml_object = eaf_file, read_file = F),
+                dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
                                  by = c("time_slot_2" = "time_slot_id")) %>%
                 dplyr::rename(time_end = time_value) %>%
                 dplyr::select(-time_slot_1, -time_slot_2) -> eaf
 
         eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
+        eaf$filename <- eaf_file
 
-        eaf %>% FRelan::add_kwic() -> eaf
+#        eaf %>% FRelan::add_kwic() -> eaf
 
         eaf
 }

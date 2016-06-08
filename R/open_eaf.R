@@ -9,58 +9,57 @@
 #' @examples
 #' open_eaf(5)
 
-open_eaf <- function(corpus = corpus_kpv, row = 1, program = FALSE){
+open_eaf <- function(corpus = corpus_kpv, row = 30, program = FALSE){
 
         `%>%` <- dplyr::`%>%`
 
         corpus %>% dplyr::slice(row) -> corpus
 
-        file <- gsub("\\.eaf$", ".pfsx", corpus$Filename)
+        file <- gsub("\\.eaf$", ".pfsx", corpus$filename)
 
-                library(XML)
                 # read in to a tree:
-                x = xmlParse(file)
+                x = XML::xmlParse(file)
 
                 # this returns a *list* of text nodes under sequence
                 # and NOT the text nodes under taxon
-                sel_begin <- xpathApply(x,"//pref[@key='SelectionBeginTime']/Long/text()")
-                sel_end <- xpathApply(x,"//pref[@key='SelectionEndTime']/Long/text()")
+                sel_begin <- XML::xpathApply(x,"//pref[@key='SelectionBeginTime']/Long/text()")
+                sel_end <- XML::xpathApply(x,"//pref[@key='SelectionEndTime']/Long/text()")
 
-                scale_begin <- xpathApply(x,"//pref[@key='TimeScaleBeginTime']/Long/text()")
+                scale_begin <- XML::xpathApply(x,"//pref[@key='TimeScaleBeginTime']/Long/text()")
 
-                media_time <- xpathApply(x,"//pref[@key='MediaTime']/Long/text()")
+                media_time <- XML::xpathApply(x,"//pref[@key='MediaTime']/Long/text()")
 
                 # now we loop over the list returned, and get and modify the node value:
 
-                if("Time_start" %in% colnames(corpus)) {
+                if("time_start" %in% colnames(corpus)) {
 
                 sapply(sel_begin, function(G){
-                        text = corpus$Time_start
-                        xmlValue(G) = text
+                        text = corpus$time_start
+                        XML::xmlValue(G) = text
                 })
 
                 sapply(sel_end, function(G){
-                        text = corpus$Time_end
-                        xmlValue(G) = text
+                        text = corpus$time_end
+                        XML::xmlValue(G) = text
                 })
 
                 sapply(scale_begin, function(G){
-                        text = corpus$Time_start
-                        xmlValue(G) = text
+                        text = corpus$time_start
+                        XML::xmlValue(G) = text
                 })
 
                 sapply(media_time, function(G){
-                        text = corpus$Time_start
-                        xmlValue(G) = text
+                        text = corpus$time_start
+                        XML::xmlValue(G) = text
                 })
 
-                saveXML(x, file)
+                XML::saveXML(x, file)
                 }
 
 
                 if (is.character(program) == TRUE){
-                system(paste("open", " -a ", program, gsub("\\.pfsx$", ".eaf", corpus$Filename)))
+                system(paste("open", " -a ", program, gsub("\\.pfsx$", ".eaf", corpus$filename)))
                 } else {
-                system(paste("open", gsub("\\.pfsx$", ".eaf", corpus$Filename)))
+                system(paste("open", gsub("\\.pfsx$", ".eaf", corpus$filename)))
                 }
         }
