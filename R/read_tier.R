@@ -8,11 +8,19 @@
 #' @examples
 #' read_tier(path = "corpora/kpv/", tier = "wordT")
 
-read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", linguistic_type = "wordT"){
+read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", linguistic_type = "wordT", read_file = T, xml_object = F){
 
                 `%>%` <- dplyr::`%>%`
 
+                if (read_file == F){
+
+                        file = xml_object
+
+                        } else {
+
                 file <- xml2::read_xml(eaf_file)
+
+                }
 
                 file %>% xml2::xml_find_all(paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")) %>%
                         xml2::xml_attr("PARTICIPANT") -> participants_in_file
