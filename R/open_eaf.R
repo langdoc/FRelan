@@ -1,6 +1,6 @@
 #' open_eaf Function
 #'
-#' This function opens an ELAN file from R. Intended use covers mainly situations where another function has, as an example, listed all files which have incorrectly linked media files which user wants to relocate file by file. In principle one could also develop it to open file in a specific location, but as far as I see this involves manipulating .psfx file which defines the selection on the timeline when opened.
+#' This function opens an ELAN file from R. If no row number is specified it is opened from the beginning. However, one can specify row number, and then the file is opened from that utterance. The row number means here the index number in the current local frame. Please note that operations like slice() impact the row numbering. Also the function demands that there is a row called `filename`, which contains complete path. The place where file is opened is determined by editing .psfx file, so that also has to be present (it is automatically generated after one opening).
 #' @param corpus To which data frame you want to apply the function
 #' @param row The number of dataframe row you want to open
 #' @param program The program with which you want to open ELAN file
@@ -9,7 +9,7 @@
 #' @examples
 #' open_eaf(5)
 
-open_eaf <- function(corpus = corpus_kpv, row = 30, program = FALSE){
+open_eaf <- function(corpus = corpus_kpv, row = 1, program = FALSE){
 
         `%>%` <- dplyr::`%>%`
 

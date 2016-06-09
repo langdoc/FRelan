@@ -37,7 +37,7 @@ read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", i
         eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
         eaf$filename <- eaf_file
 
-#        eaf %>% FRelan::add_kwic() -> eaf
+        eaf %>% FRelan::add_kwic() -> eaf
 
         eaf
 }
