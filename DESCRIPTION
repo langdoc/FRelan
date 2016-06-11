@@ -1,6 +1,6 @@
 Package: FRelan
 Title: Parse and analyze ELAN files
-Version: 0.33
+Version: 0.34
 Authors@R: c(person("Niko", "Partanen", , "nikotapiopartanen@gmail.com", role = c("aut", "cre")),
            person("Kone Foundation", , "www.koneensaatio.fi/en/", role = c("fnd")))
 Description: Parsing ELAN files into R
