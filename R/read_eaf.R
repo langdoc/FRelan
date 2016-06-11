@@ -14,30 +14,56 @@ read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", i
 
         `%>%` <- dplyr::`%>%`
 
-        eaf = xml2::read_xml(eaf_file)
+        try_eaf <- function(eaf_file) {
 
-        eaf <- FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ss_tier) %>%
-                dplyr::select(content, ref_id, participant) %>%
-                dplyr::rename(token = content) %>%
-                dplyr::rename(annot_id = ref_id) %>%
-                dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = sa_tier)) %>%
-                dplyr::select(token, content, participant, ref_id) %>%
-                dplyr::rename(utterance = content) %>%
-                dplyr::rename(annot_id = ref_id) %>%
-                dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ind_tier)) %>%
-                dplyr::select(token, utterance, content, participant, time_slot_1, time_slot_2) %>%
-                dplyr::rename(reference = content) %>% dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
-                                                                        by = c("time_slot_1" = "time_slot_id")) %>%
-                dplyr::rename(time_start = time_value) %>%
-                dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
-                                 by = c("time_slot_2" = "time_slot_id")) %>%
-                dplyr::rename(time_end = time_value) %>%
-                dplyr::select(-time_slot_1, -time_slot_2) -> eaf
+        tryCatch({
 
-        eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
-        eaf$filename <- eaf_file
+                eaf <- xml2::read_xml(eaf_file)
+                eaf <- FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ss_tier) %>%
+                        dplyr::select(content, ref_id, participant) %>%
+                        dplyr::rename(token = content) %>%
+                        dplyr::rename(annot_id = ref_id) %>%
+                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = sa_tier)) %>%
+                        dplyr::select(token, content, participant, ref_id) %>%
+                        dplyr::rename(utterance = content) %>%
+                        dplyr::rename(annot_id = ref_id) %>%
+                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ind_tier)) %>%
+                        dplyr::select(token, utterance, content, participant, time_slot_1, time_slot_2) %>%
+                        dplyr::rename(reference = content) %>% dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
+                                                                                by = c("time_slot_1" = "time_slot_id")) %>%
+                        dplyr::rename(time_start = time_value) %>%
+                        dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
+                                         by = c("time_slot_2" = "time_slot_id")) %>%
+                        dplyr::rename(time_end = time_value) %>%
+                        dplyr::select(-time_slot_1, -time_slot_2) -> eaf
 
-        eaf %>% FRelan::add_kwic() -> eaf
+                eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
+                eaf$filename <- eaf_file
 
-        eaf
+                eaf_result <- eaf %>% FRelan::add_kwic()
+                eaf_result
+
+#        }, warning = function(w) {
+
+        }, error = function(e) {
+                eaf_result <- dplyr::data_frame(token = NA,
+                                  utterance = paste0("Error in file : ", as.character(e)),
+                                  reference = NA,
+                                  participant = NA,
+                                  time_start = NA,
+                                  time_end = NA,
+                                  session_name = gsub(".+/(.+).eaf", "\\1", eaf_file),
+                                  filename = eaf_file)
+                eaf_result
+
+        }, finally = {
+
+        eaf_result
+
+                })
+        }
+
+        try_eaf()
+
 }
+
