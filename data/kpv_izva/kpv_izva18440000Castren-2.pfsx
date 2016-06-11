@@ -97,13 +97,13 @@
         <Int>1</Int>
     </pref>
     <pref key="SelectionBeginTime">
-        <Long>30000</Long>
+        <Long>40000</Long>
     </pref>
     <pref key="LayoutManager.CurrentMode">
         <Int>1</Int>
     </pref>
     <pref key="MediaTime">
-        <Long>30000</Long>
+        <Long>40000</Long>
     </pref>
     <prefGroup key="TranscriptionMode.Temp.TierColors">
         <pref key="geo">
@@ -115,17 +115,17 @@
         <pref key="orth@bundle:Castren">
             <Object class="java.awt.Color">0,90,160</Object>
         </pref>
-        <pref key="ref@bundle:Castren">
-            <Object class="java.awt.Color">0,90,160</Object>
-        </pref>
         <pref key="ft-eng@bundle:Castren">
             <Object class="java.awt.Color">0,90,160</Object>
         </pref>
-        <pref key="part">
-            <Object class="java.awt.Color">0,90,0</Object>
+        <pref key="ref@bundle:Castren">
+            <Object class="java.awt.Color">0,90,160</Object>
         </pref>
         <pref key="comment">
             <Object class="java.awt.Color">90,90,160</Object>
+        </pref>
+        <pref key="part">
+            <Object class="java.awt.Color">0,90,0</Object>
         </pref>
     </prefGroup>
     <pref key="MultiTierViewer.TierSortingMode">
@@ -177,7 +177,7 @@
         </pref>
     </prefGroup>
     <pref key="TimeScaleBeginTime">
-        <Long>29840</Long>
+        <Long>38800</Long>
     </pref>
     <prefGroup key="TranscriptionTable.ColumnWidth">
         <pref key="Type2">
@@ -188,6 +188,6 @@
         </pref>
     </prefGroup>
     <pref key="SelectionEndTime">
-        <Long>40000</Long>
+        <Long>50000</Long>
     </pref>
 </preferences>

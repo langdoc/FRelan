@@ -110,14 +110,14 @@
         <Int>70</Int>
     </pref>
     <pref key="LayoutManager.SelectedTabIndex">
-        <Int>8</Int>
+        <Int>0</Int>
     </pref>
     <prefGroup key="TierColors">
-        <pref key="geo">
-            <Object class="java.awt.Color">160,160,0</Object>
-        </pref>
         <pref key="ref@NTP-M-1986">
             <Object class="java.awt.Color">0,0,160</Object>
+        </pref>
+        <pref key="geo">
+            <Object class="java.awt.Color">160,160,0</Object>
         </pref>
         <pref key="bio">
             <Object class="java.awt.Color">90,0,160</Object>
@@ -125,11 +125,11 @@
         <pref key="ref@JAI-M-1939">
             <Object class="java.awt.Color">90,90,160</Object>
         </pref>
-        <pref key="part">
-            <Object class="java.awt.Color">90,90,0</Object>
-        </pref>
         <pref key="comment">
             <Object class="java.awt.Color">0,90,90</Object>
+        </pref>
+        <pref key="part">
+            <Object class="java.awt.Color">90,90,0</Object>
         </pref>
     </prefGroup>
     <prefList key="CommentViewer.Columns.Hidden">
@@ -140,13 +140,13 @@
         <Object class="java.awt.Point">0,23</Object>
     </pref>
     <pref key="SelectionBeginTime">
-        <Long>481566</Long>
+        <Long>141456</Long>
     </pref>
     <pref key="LayoutManager.CurrentMode">
         <Int>1</Int>
     </pref>
     <pref key="MediaTime">
-        <Long>482001</Long>
+        <Long>141455</Long>
     </pref>
     <pref key="MultiTierViewer.TierSortingMode">
         <Int>1</Int>
@@ -156,6 +156,17 @@
     </pref>
     <pref key="FrameSize">
         <Object class="java.awt.Dimension">1280,773</Object>
+    </pref>
+    <prefGroup key="AAM-LR Phone level audio segmentation">
+        <pref key="base_url">
+            <String>http://lux17.mpi.nl/aamlr/</String>
+        </pref>
+        <pref key="source_audio">
+            <String>///Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgushevJA.wav</String>
+        </pref>
+    </prefGroup>
+    <pref key="ActiveRecognizerName">
+        <String>AAM-LR Phone level audio segmentation</String>
     </pref>
     <prefGroup key="CommentViewer.Columns">
         <pref key="Modification Date">
@@ -193,7 +204,7 @@
         <String>part</String>
     </pref>
     <pref key="TimeScaleBeginTime">
-        <Long>477693</Long>
+        <Long>136955</Long>
     </pref>
     <pref key="LayoutManager.MediaAreaHeight">
         <Int>315</Int>
@@ -202,6 +213,6 @@
         <String>Text-to-Speech alignment</String>
     </pref>
     <pref key="SelectionEndTime">
-        <Long>485180</Long>
+        <Long>147100</Long>
     </pref>
 </preferences>
