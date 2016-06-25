@@ -14,6 +14,7 @@ Import: plyr,
         XML,
         shiny,
         xml2,
-        stringr
+        stringr,
+        stringi
 Suggests: knitr
 VignetteBuilder: knitr
