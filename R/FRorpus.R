@@ -5,19 +5,19 @@
 #' @keywords ELAN
 #' @export
 
-FRorpus <- function(corpus, c1 = "before", c2 = "token", c3 = "after", c4 = FALSE) {
+FRorpus <- function(data, c1 = "before", c2 = "token", c3 = "after", c4 = FALSE) {
 
 `%>%` <- dplyr::`%>%`
 
-data <- corpus
+corpus <- data
 
 # This is the function used to filter searches
 
 filtering <- function(regex, env_after, env_before, ignore){
-        data <- data %>% dplyr::filter(grepl(regex, token, perl = TRUE))
-        data <- data %>% dplyr::filter(grepl(env_after, after, perl = TRUE))
-        data <- data %>% dplyr::filter(grepl(env_before, before, perl = TRUE))
-        data <- data %>% dplyr::filter(! grepl(ignore, token, perl = TRUE))
+        corpus <- corpus %>% dplyr::filter(grepl(regex, token, perl = TRUE))
+        corpus <- corpus %>% dplyr::filter(grepl(env_after, after, perl = TRUE))
+        corpus <- corpus %>% dplyr::filter(grepl(env_before, before, perl = TRUE))
+        corpus <- corpus %>% dplyr::filter(! grepl(ignore, token, perl = TRUE))
 }
 
 # This is the UI definition
@@ -49,6 +49,15 @@ shiny::shinyApp(ui = shiny::fluidPage(theme = "bootstrap.css",
                                                    ))
 ),
 
+# This is the visualizations tab panel
+
+                shiny::tabPanel('Visualize',
+                         shiny::fluidRow(
+                                 shiny::mainPanel(
+                                         shiny::p("What is being visualized could ideally be changed..."),
+                                         ggvis::ggvisOutput("ggvis")
+                         ))),
+
 # This is another tab for different content -- there could be more of these
 
                         shiny::tabPanel('Information & Help',
@@ -75,12 +84,12 @@ server = function(input, output) {
 
         output$table <- shiny::renderDataTable({
 
-                data <- filtering(input$text1, input$text2, input$text3, input$text4)
+                corpus <- filtering(input$text1, input$text2, input$text3, input$text4)
 
                  if (c4 == FALSE){
-                data[,c(c1, c2, c3)]
+                corpus[,c(c1, c2, c3)]
                  } else {
-                data[,c(c1, c2, c3, c4)]
+                corpus[,c(c1, c2, c3, c4)]
                  }
 
         }, options = list(
@@ -103,5 +112,14 @@ server = function(input, output) {
                 lengthMenu = c(10, 50, 100), # length options
                 pageLength = 20) # default rows
         )
+
+        # filtered <- reactive({corpus <- filtering(input$language, input$text1, input$text2, input$text3, input$text4)})
+
+        corpus %>% ggvis::ggvis(~participant) %>%
+                ggvis::layer_bars() %>%
+#                ggvis::bind_shiny("ggvis") %>%
+                ggvis::add_axis("x", properties = ggvis::axis_props(
+                        labels = list(angle = 90, align = "left"))
+                )
 })
 }
