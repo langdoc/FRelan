@@ -37,10 +37,10 @@ note_text <- plyr::llply(notes, function(x) {
 })
 
 note_content <- plyr::ldply(note_text, function(x){
-        dplyr::left_join(x, note_headers, by = "file") %>% tbl_df
+        dplyr::left_join(x, note_headers, by = "file") %>% dplyr::tbl_df()
 })
 
-note_content %>% dplyr::tbl_df %>% dplyr::filter(! is.na(annotation)) %>%
+note_content %>% dplyr::tbl_df() %>% dplyr::filter(! is.na(annotation)) %>%
         dplyr::mutate(tag = stringr::str_replace(annotation, "(^[A-Z]+) (.+)", "\\1")) -> note_content
 
 note_content[stringi::stri_detect_regex(note_content$annotation, "([A-Z]+) .+") == FALSE,]$tag <- NA
