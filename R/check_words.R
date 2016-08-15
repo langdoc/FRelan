@@ -11,6 +11,7 @@ check_words <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20150406-
 
         corpus_to_compare <- readr::read_rds(corpus) %>% tbl_df
         new_words <- FRelan::read_tier(eaf_file = eaf_file, linguistic_type = "wordT") %>% .$content
-        sort(new_words[! new_words %in% corpus_to_compare$word])
+        new_words <- tolower(new_words)
+        sort(new_words[! new_words %in% corpus_to_compare$token])
 
 }
