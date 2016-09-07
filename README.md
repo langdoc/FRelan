@@ -1,4 +1,4 @@
-## FRelan (version 0.34)
+## FRelan (version 0.36)
 
 This is a GitHub repository for R package FRelan. It is still in very active development and may still change radically. However, now in these weeks (June 2016) it is probably reaching somewhat stable state especially as we are using it a lot with Saami and Komi data and this demands some stability as well.
 
@@ -43,7 +43,7 @@ The most convenient way to read a large number of files is now something like th
     library(dplyr)
     library(FRelan)
     eaf <- list.files(path = "/path/to/the/files/", pattern = "eaf$", recursive = T, full.names = T)
-    corpus_kpv <- ldply(eaf, read_eaf) %>% tbl_df
+    corpus <- ldply(eaf, read_eaf) %>% tbl_df
 
 So object `eaf` contains paths to each of found ELAN files, after which `ldply` function applies `read_eaf` function to each one of them, returning a data frame. Please notice that using `llply` one could return a list a data frames. This is also useful in many situations.
 
@@ -51,13 +51,13 @@ So object `eaf` contains paths to each of found ELAN files, after which `ldply` 
 
 To cite package ‘FRelan’ in publications use:
 
-  Niko Partanen (2016). FRelan: Analyse and diagnose ELAN files. R package version 0.34.
+  Niko Partanen (2016). FRelan: Analyse and diagnose ELAN files. R package version 0.36.
 
 A BibTeX entry for LaTeX users is
 
   @Manual{,
     title = {FRelan: Parse and analyse ELAN files},
     author = {Niko Partanen},
-    year = {2015},
-    note = {R package version 0.25},
+    year = {2016},
+    note = {R package version 0.36},
   }
