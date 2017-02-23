@@ -22,11 +22,13 @@ read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", i
                         dplyr::select(content, ref_id, participant) %>%
                         dplyr::rename(token = content) %>%
                         dplyr::rename(annot_id = ref_id) %>%
-                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = sa_tier), by = c("annot_id", "participant")) %>%
+                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = sa_tier),
+                                         by = c("annot_id", "participant")) %>%
                         dplyr::select(token, content, participant, ref_id) %>%
                         dplyr::rename(utterance = content) %>%
                         dplyr::rename(annot_id = ref_id) %>%
-                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ind_tier), by = c("participant", "annot_id")) %>%
+                        dplyr::left_join(FRelan::read_tier(xml_object = eaf, read_file = F, linguistic_type = ind_tier),
+                                         by = c("participant", "annot_id")) %>%
                         dplyr::select(token, utterance, content, participant, time_slot_1, time_slot_2) %>%
                         dplyr::rename(reference = content) %>% dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
                                                                                 by = c("time_slot_1" = "time_slot_id")) %>%
@@ -34,12 +36,20 @@ read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", i
                         dplyr::left_join(FRelan::read_timeslots(xml_object = eaf, read_file = F),
                                          by = c("time_slot_2" = "time_slot_id")) %>%
                         dplyr::rename(time_end = time_value) %>%
-                        dplyr::select(-time_slot_1, -time_slot_2) -> eaf
+                        dplyr::select(-time_slot_1, -time_slot_2)
 
-                eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
-                eaf$filename <- eaf_file
+                if (nrow(eaf) > 0) {
 
-                eaf %>% FRelan::add_kwic()
+                        eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
+                        eaf$filename <- eaf_file
+
+                        eaf %>% FRelan::add_kwic()
+
+                } else {
+
+                        dplyr::data_frame(token = NA, utterance = NA, reference = NA, participant = NA, time_start = 0, time_end = 0)
+
+                }
 
         }, error = function(e) {
                 message(as.character(e))
