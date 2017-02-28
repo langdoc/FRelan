@@ -1,4 +1,5 @@
 # ELAN structure standard used by the Freiburg Research Group in Saami Studies
+## for Saami and Komi languages
 
 ***
 
