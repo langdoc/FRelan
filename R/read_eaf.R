@@ -10,7 +10,7 @@
 #' @examples
 #' read_eaf(eaf_file = "corpora/kpv/session_1.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT")
 
-read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
+read_eaf <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
 
         `%>%` <- dplyr::`%>%`
 
@@ -53,18 +53,6 @@ read_eaf <- function(eaf_file = "data/kpv_izva/kpv_izva18440000Castren-2.eaf", i
 
         }, error = function(e) {
                 message(as.character(e))
-                # dplyr::data_frame(token = NA,
-                #                   utterance = paste0("Error in file ", eaf_file, ": ", as.character(e)),
-                #                   reference = NA,
-                #                   participant = NA,
-                #                   time_start = NA,
-                #                   time_end = NA,
-                #                   session_name = gsub(".+/(.+).eaf", "\\1", eaf_file),
-                #                   filename = eaf_file,
-                #                   word = NA,
-                #                   after = NA,
-                #                   before = NA)
-
         })
 
         eaf_result
