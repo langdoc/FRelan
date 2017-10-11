@@ -5,17 +5,17 @@
 #' @keywords ELAN
 #' @export
 
-add_tier <- function(file = "/Volumes/langdoc/langs/kpv/kpv_izva20000321ChuprovII/kpv_izva20000321ChuprovII-backup.eaf", participant = "IIC-M-1937", linguistic_type = "var-sT", tier_id = "var-s", parent = "ref", time_alignable = TRUE, empty = FALSE, lang = "kpv"){
+add_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20000321ChuprovII/kpv_izva20000321ChuprovII.eaf", participant = "IIC-M-1937", linguistic_type = "var-sT", tier_id = "var-s", parent = "ref", time_alignable = TRUE, empty = FALSE, lang = "kpv"){
 
         `%>%` <- dplyr::`%>%`
 
-        eaf <- FRelan::read_eaf(file, simplify = F) %>% dplyr::tbl_df %>% dplyr::filter(Speaker == participant)
+        eaf <- FRelan::read_eaf(eaf_file) %>% dplyr::tbl_df() %>% dplyr::filter(participant == participant)
 
-        eaf$Utter_unit <- split(eaf, f = eaf$Ref) %>% plyr::llply(., row.names) %>% unlist %>% as.numeric
+        eaf$Utter_unit <- split(eaf, f = eaf$reference) %>% plyr::llply(., row.names) %>% unlist %>% as.numeric
 
         # eaf %>% select(Token, Utter_unit)
 
-        eaf <- dplyr::left_join(eaf, dplyr::data_frame(Ref = distinct(eaf, Ref) %>% .$Ref,
+        eaf <- dplyr::left_join(eaf, dplyr::data_frame(ref = distinct(eaf, ref_id) %>% .$ref,
                                          Utter_length = split(eaf, f = eaf$Ref) %>%
                                                  plyr::llply(., function(x) as.numeric(max(row.names(x)))) %>% unlist))
 
@@ -68,17 +68,17 @@ add_tier <- function(file = "/Volumes/langdoc/langs/kpv/kpv_izva20000321ChuprovI
         # Main tier node
 
         tier <- XML::newXMLNode("TIER", attrs = c(LINGUISTIC_TYPE_REF = linguistic_type,
-                                                  PARENT_REF = paste0(parent, "@", eaf_s$Speaker[1]),
+                                                  PARENT_REF = paste0(parent, "@", eaf_s$participant[1]),
 #                                                  LANG_REF = lang,
                                                   PARTICIPANT = eaf_s$Speaker[1],
-                                                  TIER_ID = paste0(tier_id, "@", eaf_s$Speaker[1])))
+                                                  TIER_ID = paste0(tier_id, "@", eaf_s$participant[1])))
 
         tier
 
         # Let's remove the annotation content in case we want to create empty annotations
 
         if (empty == TRUE){
-                eaf_s$Token <- gsub(".+", "", eaf_s$Token)
+                eaf_s$token <- gsub(".+", "", eaf_s$token)
         }
 
         # Here we can iterate through the nodes

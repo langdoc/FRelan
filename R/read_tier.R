@@ -22,10 +22,10 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
 
                 }
 
-                file %>% xml2::xml_find_all(paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")) %>%
-                        xml2::xml_attr("PARTICIPANT") -> participants_in_file
+                participants_in_file <- file %>% xml2::xml_find_all(paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "']")) %>%
+                        xml2::xml_attr("PARTICIPANT")
 
-                coerce_data_frame <- function(participant){
+                coerce_data_frame <- function(current_participant){
                         dplyr::data_frame(
                                 content = file %>%
                                         xml2::xml_find_all(
@@ -39,10 +39,7 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
                                         xml2::xml_find_all(
                                                 paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']/ANNOTATION/*/ANNOTATION_VALUE/..")) %>%
                                         xml2::xml_attr("ANNOTATION_REF"),
-                                participant = file %>%
-                                        xml2::xml_find_all(
-                                                paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']/ANNOTATION/*/ANNOTATION_VALUE/../../..")) %>%
-                                        xml2::xml_attr("PARTICIPANT"),
+                                speaker = current_participant,
                                 tier_id = file %>%
                                         xml2::xml_find_all(
                                                 paste0("//TIER[@LINGUISTIC_TYPE_REF='", linguistic_type, "' and @PARTICIPANT='", participant,"']/ANNOTATION/*/ANNOTATION_VALUE/../../..")) %>%
@@ -61,6 +58,6 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
                                         xml2::xml_attr("TIME_SLOT_REF2"))
                 }
 
-                plyr::ldply(participants_in_file, coerce_data_frame) %>% dplyr::tbl_df()
+                plyr::ldply(participants_in_file, coerce_data_frame) %>% dplyr::tbl_df() %>% dplyr::rename(participant = speaker)
 
         }
