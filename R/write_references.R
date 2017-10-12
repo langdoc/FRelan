@@ -1,6 +1,6 @@
 #' write_references Function read individual tiers from single ELAN files.
 #'
-#' This function reads just an individual tier of one ELAN file
+#' This function rewrites the content of reference tier in an ELAN file
 #' @param eaf_file This is a path to the file.
 #' @keywords ELAN
 #' @export
