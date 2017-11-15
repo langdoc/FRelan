@@ -58,6 +58,24 @@ read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404Igu
                                         xml2::xml_attr("TIME_SLOT_REF2"))
                 }
 
-                plyr::ldply(participants_in_file, coerce_data_frame) %>% dplyr::tbl_df() %>% dplyr::rename(participant = speaker)
+                if (length(participants_in_file) != 0){
+
+                        plyr::ldply(participants_in_file, coerce_data_frame) %>% dplyr::tbl_df() %>% dplyr::rename(participant = speaker)
+
+                } else {
+
+                        all_participants <- file %>% xml2::xml_find_all("//TIER") %>%
+                                xml2::xml_attr("PARTICIPANT") %>% unique()
+                        tibble(content = NA,
+                               annot_id = '',
+                               ref_id = '',
+                               participant = all_participants,
+                               tier_id = '',
+                               type = linguistic_type,
+                               time_slot_1 = NA,
+                               time_slot_2 = NA)
+
+                }
+
 
         }
