@@ -83,11 +83,11 @@
         <String>Modification Date</String>
     </prefList>
     <prefGroup key="Human motion analysis and annotation">
-        <pref key="output_video_resolution">
-            <String>half</String>
-        </pref>
         <pref key="background_image">
             <String>false</String>
+        </pref>
+        <pref key="output_video_resolution">
+            <String>half</String>
         </pref>
         <pref key="use_single_cluster">
             <String>false</String>
@@ -99,11 +99,11 @@
             <String>normal</String>
         </pref>
         <prefGroup key="input_xml"/>
-        <pref key="use_rest_position">
-            <String>false</String>
-        </pref>
         <pref key="change_threshold">
             <Float>30.0</Float>
+        </pref>
+        <pref key="use_rest_position">
+            <String>false</String>
         </pref>
     </prefGroup>
     <pref key="LayoutManager.SplitPaneDividerLocation">
@@ -113,11 +113,11 @@
         <Int>0</Int>
     </pref>
     <prefGroup key="TierColors">
-        <pref key="ref@NTP-M-1986">
-            <Object class="java.awt.Color">0,0,160</Object>
-        </pref>
         <pref key="geo">
             <Object class="java.awt.Color">160,160,0</Object>
+        </pref>
+        <pref key="ref@NTP-M-1986">
+            <Object class="java.awt.Color">0,0,160</Object>
         </pref>
         <pref key="bio">
             <Object class="java.awt.Color">90,0,160</Object>
@@ -146,7 +146,7 @@
         <Int>1</Int>
     </pref>
     <pref key="MediaTime">
-        <Long>141455</Long>
+        <Long>0</Long>
     </pref>
     <pref key="MultiTierViewer.TierSortingMode">
         <Int>1</Int>
@@ -204,7 +204,7 @@
         <String>part</String>
     </pref>
     <pref key="TimeScaleBeginTime">
-        <Long>136955</Long>
+        <Long>132955</Long>
     </pref>
     <pref key="LayoutManager.MediaAreaHeight">
         <Int>315</Int>
