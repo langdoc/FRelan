@@ -1,8 +1,6 @@
-## FRelan (version 0.36)
+## FRelan (version 0.37?)
 
-This is a GitHub repository for R package FRelan. It is still in very active development and may still change radically. However, now in these weeks (June 2016) it is probably reaching somewhat stable state especially as we are using it a lot with Saami and Komi data and this demands some stability as well.
-
-**Right now the above statement is not actually true. I want to do some cosmetic changes, such as changing the column names across all functions here, and this means that almost nothing works now as assumed!**
+This is a GitHub repository for R package FRelan. It is currently overgoing maintenance, so many things may not work as expected.
 
 You can install the package with `devtools` package.
 
