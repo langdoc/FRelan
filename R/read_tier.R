@@ -8,7 +8,7 @@
 #' @examples
 #' read_tier(path = "corpora/kpv/", tier = "wordT")
 
-read_tier <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", linguistic_type = "wordT", read_file = T, xml_object = F){
+read_tier <- function(eaf_file, linguistic_type = "wordT", read_file = T, xml_object = F){
 
                 `%>%` <- dplyr::`%>%`
 

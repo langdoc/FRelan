@@ -10,7 +10,7 @@
 #' @examples
 #' read_eaf(eaf_file = "corpora/kpv/session_1.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT")
 
-read_eaf <- function(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf", ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
+read_eaf <- function(eaf_file, ind_tier = "refT", sa_tier = "orthT", ss_tier = "wordT"){
 
         `%>%` <- dplyr::`%>%`
 
