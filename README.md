@@ -1,12 +1,11 @@
-## FRelan (version 0.37?)
+## FRelan (version 0.37)
 
 This is a GitHub repository for R package FRelan. It is currently overgoing maintenance, so many things may not work as expected.
 
 You can install the package with `devtools` package.
 
     install.packages("devtools")
-    library(devtools)
-    install_github("langdoc/FRelan")
+    devtools::install_github("langdoc/FRelan")
     library(FRelan)
 
 Please report bugs, weird behaviour and ideas for new features to [Niko Partanen](nikotapiopartanen@gmail.com).
@@ -15,35 +14,9 @@ Please report bugs, weird behaviour and ideas for new features to [Niko Partanen
 
 Several things are unpolished and forthcoming.
 
-### Error handling has to be designed better
-
-Error handling in `read_eaf()` function starts to look good!
-
-### media_eaf() -function
-
-It is very annoying to work with ELAN corpus which doesn't have right media files associated with each file. There could be a function that checks if the files referred to actually exists, and returns a data frame with that information. Files could be directly opened and checked with `open_eaf()` function.
-
-### What to do with empty ELAN files
-
-At the moment `read_eaf()` gracefully prints error messages and skips misformatted files, but it could be more useful to get errors in different format so that one could process that. Actually one could add into `read_eaf()` an argument `test` which could then return differently structured data frame from which different error types could be studied easily.
-
-## Recent changes
-
-### Error handling
-
-Getting better!
-
-## More dependency from plyr
-
-The most convenient way to read a large number of files is now something like this:
-
-    library(plyr)
-    library(dplyr)
-    library(FRelan)
-    eaf <- list.files(path = "/path/to/the/files/", pattern = "eaf$", recursive = T, full.names = T)
-    corpus <- ldply(eaf, read_eaf) %>% tbl_df
-
-So object `eaf` contains paths to each of found ELAN files, after which `ldply` function applies `read_eaf` function to each one of them, returning a data frame. Please notice that using `llply` one could return a list a data frames. This is also useful in many situations.
+- Going through all unnecessary functions
+- Checking what all needs better documentation
+- Writing actual vignettes and examples
 
 ## Cite
 
