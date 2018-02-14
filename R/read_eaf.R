@@ -43,7 +43,10 @@ read_eaf <- function(eaf_file, ind_tier = "refT", sa_tier = "orthT", ss_tier = "
                         eaf$session_name <- gsub(".+/(.+).eaf", "\\1", eaf_file)
                         eaf$filename <- eaf_file
 
-                        eaf %>% FRelan::add_kwic()
+                        # This creates before and after columns,
+                        # but I think those make the file enormous
+                        # and could be added if needed
+                        # eaf %>% FRelan::add_kwic()
 
                 } else {
 
