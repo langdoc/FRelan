@@ -7,8 +7,8 @@
 #' @examples
 #' get_session_name("/Volumes/data/kom/subfolder/another/good_session.eaf")
 
-get_session_name <- function(file_path = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf"){
+get_session_name <- function(file_path){
 
-        gsub(".+/(.+).eaf$", "\\1", file_path)
+        gsub("([^/]+).eaf$", "\\1", file_path)
 
         }

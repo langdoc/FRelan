@@ -4,8 +4,7 @@
 \alias{get_session_name}
 \title{get_session_name Function extracts session name from the path. Super simple, but keeps that regex in one place}
 \usage{
-
-  get_session_name(file_path = "/Volumes/langdoc/langs/kpv/kpv_izva20140404IgusevJA/kpv_izva20140404IgusevJA.eaf")
+get_session_name(file_path)
 }
 \description{
 This function just applies a regex
