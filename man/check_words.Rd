@@ -4,9 +4,7 @@
 \alias{check_words}
 \title{check_words Function}
 \usage{
-
-  check_words(eaf_file = "/Volumes/langdoc/langs/kpv/kpv_izva20150406-3/kpv_izva20150406-3-a/kpv_izva20150406-3-a.eaf",
-  corpus_rds = "/Volumes/langdoc/langs/kpv/kpv_izva_corpus.rds")
+check_words(eaf_file, corpus_rds)
 }
 \arguments{
 \item{eaf_file}{Filename}
@@ -16,5 +14,8 @@
 \description{
 This function takes one ELAN file reads the word tokens and compares those to the previously created data frame.
 The idea is to find tokens which do not occur in corpus already and are possible candidates for being typos.
+}
+\examples{
+check_words(eaf_file = "file.eaf", corpus_rds = "corpus.rds")
 }
 \keyword{ELAN}
